@@ -31,17 +31,18 @@ class App extends React.Component {
 
   componentWillUnmount() {
     // call the subscription object
+    console.log('Unsubscribing from auth');
     this.unsubscribeFromAuth();
   }
 
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage}></Route>
           <Route path="/shop" component={ShopPage}></Route>
-          <Route path="/signin" component={SignInAndSignUpPage}></Route>
+          <Route path="/sign-in" component={SignInAndSignUpPage}></Route>
         </Switch>
       </div>
     );
