@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 
@@ -39,6 +39,17 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
 
+  /**
+   * Determines which page to redirect sign-in render invocations.
+   * 
+   * This will redirect users to the home page after signing in, and also prevent them 
+   * from accessing the page once signed in.
+   */
+  signInRedirect = () => {
+    if (this.props.currentUser) return <Redirect to="/" />;
+    return <SignInAndSignUpPage />;
+  };
+
   render() {
     return (
       <div>
@@ -46,15 +57,22 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage}></Route>
           <Route path="/shop" component={ShopPage}></Route>
-          <Route path="/sign-in" component={SignInAndSignUpPage}></Route>
+          <Route exact path="/sign-in" render={this.signInRedirect}></Route>
         </Switch>
       </div>
     );
   }
 }
 
+/**
+ * function that defines where to retrieve current user from redux
+ */
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
