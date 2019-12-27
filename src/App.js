@@ -3,6 +3,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/user.selectors";
+
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
@@ -41,8 +44,8 @@ class App extends React.Component {
 
   /**
    * Determines which page to redirect sign-in render invocations.
-   * 
-   * This will redirect users to the home page after signing in, and also prevent them 
+   *
+   * This will redirect users to the home page after signing in, and also prevent them
    * from accessing the page once signed in.
    */
   signInRedirect = () => {
@@ -67,8 +70,8 @@ class App extends React.Component {
 /**
  * function that defines where to retrieve current user from redux
  */
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
