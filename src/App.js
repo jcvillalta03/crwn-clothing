@@ -3,8 +3,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 
+import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 import HomePage from "./pages/homepage/homepage.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
@@ -12,9 +14,7 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
 import { auth, createUserProfile } from "./firebase/firebase.utils";
-import { connect } from "react-redux";
 
-import { setCurrentUser } from "./redux/user/user.actions";
 
 class App extends React.Component {
   // create a subscription object to be used when component unmounts
