@@ -15,7 +15,6 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from "./components/header/header.component";
 import { auth, createUserProfile } from "./firebase/firebase.utils";
 
-
 class App extends React.Component {
   // create a subscription object to be used when component unmounts
   unsubscribeFromAuth = null;
