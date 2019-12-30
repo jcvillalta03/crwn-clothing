@@ -55,7 +55,24 @@ export const addCollectionAndDocuments = async (
     batch.set(newDocumentReference, obj);
   });
 
-  batch.commit()
+  batch.commit();
+};
+
+export const convertCollectionSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    };
+  });
+  console.log(transformedCollection);
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 //initialize the app with the config
